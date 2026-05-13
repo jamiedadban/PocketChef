@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PocketChef – Your AI Kitchen Companion</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ NAV ═══════════════════════════════ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="logo">🍳 PocketChef</div>
+    <ul class="nav-links">
+      <li><a href="#meal-profile">Meal Profile</a></li>
+      <li><a href="#guided-cooking">Guided Cooking</a></li>
+      <li><a href="#meal-planner">Meal Planner</a></li>
+      <li><a href="#nutrition">Nutrition</a></li>
+      <li><a href="#pantry">Pantry Scanner</a></li>
+      <li><a href="#grocery">Grocery List</a></li>
+    </ul>
+    <div class="nav-user">Welcome, <span id="user-name-nav">Jamie Tran</span> 👤</div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+<header id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <span class="hero-badge">AI-Powered Kitchen Assistant</span>
+    <h1>Your Personal<br/><em>Pocket Chef</em></h1>
+    <p class="hero-sub">Smart meal planning · Guided cooking · Pantry scanning · Nutrition insights – all in one place.</p>
+    <div class="hero-cta">
+      <a href="#meal-profile" class="btn btn-primary">Get Started</a>
+      <a href="#meal-planner" class="btn btn-ghost">View Meal Plan</a>
+    </div>
+  </div>
+  <div class="hero-phone-mock">
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="phone-header">🍳 Pocket Chef</div>
+        <div class="phone-menu-item">Custom meal profiles</div>
+        <div class="phone-menu-item">Set Dietary Preferences</div>
+        <div class="phone-menu-item active-item">Weekly Meal Plans</div>
+        <div class="phone-menu-item">Auto Generate Meals</div>
+        <div class="phone-menu-item">Nutrition Insights</div>
+        <div class="phone-menu-item">Pantry Scanner</div>
+        <div class="phone-menu-item">Check expiry scan</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════ CUSTOM MEAL PROFILE ═══════════════════ -->
+<section id="meal-profile" class="section">
+  <div class="section-header">
+    <span class="section-tag">Step 1</span>
+    <h2>Custom Meal Profile</h2>
+    <p>Set your dietary preferences, calorie targets and cooking skill so PocketChef can personalise every recommendation.</p>
+    <button class="btn-download" onclick="downloadSection('meal-profile-card')">⬇ Download This Section</button>
+  </div>
+
+  <div id="meal-profile-card" class="card profile-card">
+    <div class="form-group">
+      <label>Profile Name</label>
+      <input type="text" id="profile-name" placeholder="e.g. Jamie Tran" value="Jamie Tran"/>
+    </div>
+
+    <div class="form-group">
+      <label>Diet Type</label>
+      <div class="toggle-group" id="diet-type">
+        <button class="toggle active" data-value="balanced">Balanced</button>
+        <button class="toggle" data-value="vegan">Vegan</button>
+        <button class="toggle" data-value="vegetarian">Vegetarian</button>
+        <button class="toggle" data-value="keto">Keto</button>
+        <button class="toggle" data-value="paleo">Paleo</button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Calorie Target per day: <strong id="calorie-display">2000</strong> kcal</label>
+      <input type="range" id="calorie-slider" min="1000" max="4000" step="50" value="2000"/>
+    </div>
+
+    <div class="form-group">
+      <label>Allergies & Restrictions</label>
+      <input type="text" id="allergies" placeholder="Type here: e.g. Nut allergy"/>
+    </div>
+
+    <div class="form-group">
+      <label>Cooking Skill Level</label>
+      <div class="toggle-group" id="skill-level">
+        <button class="toggle active" data-value="beginner">Beginner</button>
+        <button class="toggle" data-value="intermediate">Intermediate</button>
+        <button class="toggle" data-value="expert">Expert</button>
+      </div>
+    </div>
+
+    <button class="btn btn-primary full-width" onclick="saveProfile()">Save Profile ✓</button>
+    <div id="profile-saved-msg" class="success-msg hidden">✅ Profile saved successfully!</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ GUIDED COOKING ═══════════════════════ -->
+<section id="guided-cooking" class="section alt-bg">
+  <div class="section-header">
+    <span class="section-tag">Step 2</span>
+    <h2>Guided Cooking Experience</h2>
+    <p>Interactive step-by-step mode with visual assistance, tutorials, and adaptive instructions based on your skill level.</p>
+    <button class="btn-download" onclick="downloadSection('guided-cooking-card')">⬇ Download This Section</button>
+  </div>
+
+  <div id="guided-cooking-card" class="card cooking-card">
+    <div class="recipe-selector">
+      <label>Choose a Recipe</label>
+      <select id="recipe-select" onchange="loadRecipe()">
+        <option value="avocado">Avocado Toast w/ Eggs</option>
+        <option value="banh-mi">Banh Mi Sandwich</option>
+        <option value="salmon">Grilled Salmon w/ Veggies</option>
+        <option value="tacos">Warm Tortilla Tacos</option>
+      </select>
+    </div>
+
+    <div class="cooking-stage">
+      <div class="step-indicator">
+        <span id="current-step-label">Step <span id="step-num">1</span> of <span id="step-total">4</span></span>
+        <div class="step-dots" id="step-dots"></div>
+      </div>
+
+      <div class="step-visual">
+        <div class="step-image" id="step-image">🥑</div>
+      </div>
+
+      <div class="step-content">
+        <h3 id="step-title">Prepare the Avocado</h3>
+        <p id="step-desc">Slice the avocado in half, remove the pit, and scoop the flesh into a bowl. Add a pinch of salt and mash lightly with a fork.</p>
+        <div class="ingredients-box">
+          <strong>Ingredients for this step:</strong>
+          <ul id="step-ingredients">
+            <li>1 ripe avocado</li>
+            <li>Pinch of salt</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step-controls">
+        <button class="btn btn-ghost" onclick="prevStep()" id="prev-btn" disabled>← Previous</button>
+        <button class="btn btn-primary" onclick="nextStep()" id="next-btn">Next Step →</button>
+      </div>
+    </div>
+
+    <div class="video-guide-btn">
+      <a href="#" class="btn btn-ghost full-width" onclick="toggleVideo(event)">▶ Open Video Guide</a>
+      <div id="video-placeholder" class="video-placeholder hidden">
+        <div class="video-mock">📹 Video tutorial would load here in a live app</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════════ WEEKLY MEAL PLANNER ═══════════════════ -->
+<section id="meal-planner" class="section">
+  <div class="section-header">
+    <span class="section-tag">Step 3</span>
+    <h2>Smart Meal Planner</h2>
+    <p>Dynamic weekly planner that auto-generates personalised meal plans based on your profile and macros.</p>
+    <button class="btn-download" onclick="downloadSection('planner-card')">⬇ Download This Section</button>
+  </div>
+
+  <div id="planner-card" class="card planner-card">
+    <div class="planner-header">
+      <div>
+        <strong id="planner-week-label">May 3 – May 10</strong>
+        <span class="planner-sub">Weekly Meal Plan</span>
+      </div>
+      <button class="btn btn-primary" onclick="generateMealPlan()">⚡ Generate Plans</button>
+    </div>
+
+    <div class="planner-grid" id="planner-grid">
+      <!-- Dynamically filled by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ NUTRITION INSIGHTS ═══════════════════ -->
+<section id="nutrition" class="section alt-bg">
+  <div class="section-header">
+    <span class="section-tag">Step 4</span>
+    <h2>Nutrition Insights</h2>
+    <p>Shows macros and micronutrients. Track your daily calorie intake, protein, carbs, fats, and get personalised tips.</p>
+    <button class="btn-download" onclick="downloadSection('nutrition-card')">⬇ Download This Section</button>
+  </div>
+
+  <div id="nutrition-card" class="card nutrition-card">
+    <div class="calorie-ring-wrap">
+      <div class="calorie-ring">
+        <svg viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="50" fill="none" stroke="#e8e0d4" stroke-width="12"/>
+          <circle cx="60" cy="60" r="50" fill="none" stroke="#c0392b" stroke-width="12"
+            stroke-dasharray="314" stroke-dashoffset="89" id="calorie-circle"
+            stroke-linecap="round" transform="rotate(-90 60 60)"/>
+        </svg>
+        <div class="ring-label">
+          <span id="intake-display">1450</span>
+          <small>/ <span id="target-display">2000</span> kcal</small>
+        </div>
+      </div>
+      <div class="calorie-info">
+        <h3>Today's Calorie Intake</h3>
+        <p id="calorie-status">You're on track! Keep it up.</p>
+        <div class="intake-inputs">
+          <label>Calories consumed today:</label>
+          <input type="number" id="calorie-intake" value="1450" min="0" max="5000" onchange="updateNutrition()"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="macro-bars">
+      <h3>Macronutrient Breakdown</h3>
+      <div class="macro-bar-item">
+        <div class="macro-label"><span>Protein</span><span id="protein-val">82g / 120g</span></div>
+        <div class="macro-track"><div class="macro-fill protein-fill" id="protein-bar" style="width:68%"></div></div>
+      </div>
+      <div class="macro-bar-item">
+        <div class="macro-label"><span>Carbs</span><span id="carb-val">155g / 200g</span></div>
+        <div class="macro-track"><div class="macro-fill carb-fill" id="carb-bar" style="width:77%"></div></div>
+      </div>
+      <div class="macro-bar-item">
+        <div class="macro-label"><span>Fats</span><span id="fat-val">52g / 60g</span></div>
+        <div class="macro-track"><div class="macro-fill fat-fill" id="fat-bar" style="width:87%"></div></div>
+      </div>
+    </div>
+
+    <div class="nutrition-tip" id="nutrition-tip">
+      💡 <strong>Tip:</strong> Balance your carbohydrate intake throughout the day for sustained energy.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ PANTRY SCANNER ═══════════════════════ -->
+<section id="pantry" class="section">
+  <div class="section-header">
+    <span class="section-tag">Step 5</span>
+    <h2>Pantry Scanner</h2>
+    <p>Barcode & OCR scanner for packaged foods and fresh produce. Expiry tracking checks best-before dates automatically.</p>
+    <button class="btn-download" onclick="downloadSection('pantry-card')">⬇ Download This Section</button>
+  </div>
+
+  <div id="pantry-card" class="card pantry-card">
+    <div class="scanner-tabs">
+      <button class="stab active" onclick="switchScanTab('barcode', this)">📷 Barcode Scanner</button>
+      <button class="stab" onclick="switchScanTab('expiry', this)">📅 Expiry Tracking</button>
+    </div>
+
+    <!-- Barcode Scanner Panel -->
+    <div id="barcode-panel" class="scan-panel">
+      <div class="scan-viewport" id="scan-viewport">
+        <div class="scan-frame">
+          <span class="scan-corner tl"></span>
+          <span class="scan-corner tr"></span>
+          <span class="scan-corner bl"></span>
+          <span class="scan-corner br"></span>
+          <div class="scan-line" id="scan-line"></div>
+          <p class="scan-text">Align Barcode with frame</p>
+          <p class="scan-status" id="scan-status">Scanning…</p>
+        </div>
+      </div>
+      <div class="scan-actions">
+        <button class="btn btn-primary" onclick="simulateScan()">🔍 Scan Item</button>
+        <button class="btn btn-ghost" onclick="addManualItem()">+ Add Manually</button>
+      </div>
+      <div id="scan-result" class="scan-result hidden"></div>
+    </div>
+
+    <!-- Expiry Tracking Panel -->
+    <div id="expiry-panel" class="scan-panel hidden">
+      <div class="expiry-section">
+        <h4>⏰ Expiry Tracker</h4>
+        <ul class="expiry-list" id="expiry-list">
+          <!-- Filled by JS -->
+        </ul>
+      </div>
+      <div class="expiry-section">
+        <h4>📋 Best Before Tracker</h4>
+        <ul class="expiry-list" id="bestbefore-list">
+          <!-- Filled by JS -->
+        </ul>
+      </div>
+      <button class="btn btn-primary" onclick="addExpiryItem()">+ Add Item</button>
+    </div>
+
+    <!-- Pantry Inventory -->
+    <div class="pantry-inventory">
+      <h4>🗄 Current Pantry</h4>
+      <div class="pantry-tags" id="pantry-tags">
+        <!-- Filled by JS -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ AI GROCERY ASSISTANT ══════════════════ -->
+<section id="grocery" class="section alt-bg">
+  <div class="section-header">
+    <span class="section-tag">Step 6</span>
+    <h2>AI Grocery Assistant</h2>
+    <p>Auto-generated shopping lists based on your pantry scanner. Smart substitutions for unavailable or expensive items. Store comparison included.</p>
+    <button class="btn-download" onclick="downloadSection('grocery-card')">⬇ Download This Section</button>
+  </div>
+
+  <div id="grocery-card" class="card grocery-card">
+    <div class="grocery-tabs">
+      <button class="gtab active" onclick="switchGroceryTab('list', this)">🛒 Shopping List</button>
+      <button class="gtab" onclick="switchGroceryTab('substitutions', this)">🔄 Smart Substitutions</button>
+      <button class="gtab" onclick="switchGroceryTab('stores', this)">🏪 Store Comparison</button>
+    </div>
+
+    <!-- Shopping List -->
+    <div id="grocery-list-panel" class="grocery-panel">
+      <div class="grocery-categories" id="grocery-categories">
+        <!-- Filled by JS -->
+      </div>
+      <div class="grocery-actions">
+        <button class="btn btn-primary" onclick="autoGenerateList()">⚡ Auto-Generate from Pantry</button>
+        <button class="btn btn-ghost danger" onclick="clearPurchases()">🗑 Clear Purchases</button>
+      </div>
+    </div>
+
+    <!-- Smart Substitutions -->
+    <div id="grocery-substitutions-panel" class="grocery-panel hidden">
+      <p class="panel-intro">Smart Substitutions recommends alternatives that are unavailable or expensive.</p>
+      <div class="subs-list" id="subs-list">
+        <!-- Filled by JS -->
+      </div>
+    </div>
+
+    <!-- Store Comparison -->
+    <div id="grocery-stores-panel" class="grocery-panel hidden">
+      <p class="panel-intro">Compare prices across nearby stores to save more on your grocery run.</p>
+      <div class="store-compare-grid" id="store-grid">
+        <!-- Filled by JS -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ FOOTER ════════════════════════════ -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">🍳 PocketChef</div>
+    <p>Your AI-powered kitchen companion. Smart meal planning, guided cooking, pantry scanning & nutrition insights.</p>
+    <div class="footer-links">
+      <a href="#meal-profile">Meal Profile</a>
+      <a href="#guided-cooking">Guided Cooking</a>
+      <a href="#meal-planner">Meal Planner</a>
+      <a href="#nutrition">Nutrition</a>
+      <a href="#pantry">Pantry</a>
+      <a href="#grocery">Grocery</a>
+    </div>
+    <p class="footer-copy">© 2025 PocketChef. Built with ❤️ for home chefs everywhere.</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
