@@ -13,8 +13,8 @@
 <nav id="navbar">
   <div class="nav-inner">
         <header id="app-header">
-            <img src="muscle man.png" alt="Home" class="internal-logo-btn" id="header-logo" onclick="switchTab('view-home')">
-            <div id="role-badge">USER</div>
+            <img src="muscle_man-removebg-preview.png" alt="Home" class="internal-logo-btn" id="header-logo" onclick="switchTab('view-home')">
+            <div id="role-badge"></div>
         </header>
     <ul class="nav-links">
       <li><a href="#meal-profile">Meal Profile</a></li>
@@ -309,63 +309,4 @@
   <div class="section-header">
     <span class="section-tag">Step 6</span>
     <h2>AI Grocery Assistant</h2>
-    <p>Auto-generated shopping lists based on your pantry scanner. Smart substitutions for unavailable or expensive items. Store comparison included.</p>
-    <button class="btn-download" onclick="downloadSection('grocery-card')">⬇ Download This Section</button>
-  </div>
-
-  <div id="grocery-card" class="card grocery-card">
-    <div class="grocery-tabs">
-      <button class="gtab active" onclick="switchGroceryTab('list', this)">🛒 Shopping List</button>
-      <button class="gtab" onclick="switchGroceryTab('substitutions', this)">🔄 Smart Substitutions</button>
-      <button class="gtab" onclick="switchGroceryTab('stores', this)">🏪 Store Comparison</button>
-    </div>
-
-    <!-- Shopping List -->
-    <div id="grocery-list-panel" class="grocery-panel">
-      <div class="grocery-categories" id="grocery-categories">
-        <!-- Filled by JS -->
-      </div>
-      <div class="grocery-actions">
-        <button class="btn btn-primary" onclick="autoGenerateList()">⚡ Auto-Generate from Pantry</button>
-        <button class="btn btn-ghost danger" onclick="clearPurchases()">🗑 Clear Purchases</button>
-      </div>
-    </div>
-
-    <!-- Smart Substitutions -->
-    <div id="grocery-substitutions-panel" class="grocery-panel hidden">
-      <p class="panel-intro">Smart Substitutions recommends alternatives that are unavailable or expensive.</p>
-      <div class="subs-list" id="subs-list">
-        <!-- Filled by JS -->
-      </div>
-    </div>
-
-    <!-- Store Comparison -->
-    <div id="grocery-stores-panel" class="grocery-panel hidden">
-      <p class="panel-intro">Compare prices across nearby stores to save more on your grocery run.</p>
-      <div class="store-compare-grid" id="store-grid">
-        <!-- Filled by JS -->
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════ FOOTER ════════════════════════════ -->
-<footer id="footer">
-  <div class="footer-inner">
-    <div class="footer-logo">🍳 PocketChef</div>
-    <p>Your AI-powered kitchen companion. Smart meal planning, guided cooking, pantry scanning & nutrition insights.</p>
-    <div class="footer-links">
-      <a href="#meal-profile">Meal Profile</a>
-      <a href="#guided-cooking">Guided Cooking</a>
-      <a href="#meal-planner">Meal Planner</a>
-      <a href="#nutrition">Nutrition</a>
-      <a href="#pantry">Pantry</a>
-      <a href="#grocery">Grocery</a>
-    </div>
-    <p class="footer-copy">© 2025 PocketChef. Built with ❤️ for home chefs everywhere.</p>
-  </div>
-</footer>
-
-<script src="app.js"></script>
-</body>
-</html>
+    <p>Auto-generated shopping lists based on your pantry scanner. Smart substitutions for unavailable or expensive items. Store comparison included.</
