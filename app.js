@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initGrocery();
   initNavHighlight();
 });
+
 /* ═══════════════ NAVBAR SCROLL HIGHLIGHT ════════════ */
 function initNavHighlight() {
   const sections = document.querySelectorAll('section[id], header[id]');
@@ -566,6 +567,3 @@ function downloadSection(sectionId) {
   a.click();
   URL.revokeObjectURL(url);
 }
-
-
-
